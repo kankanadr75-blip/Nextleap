@@ -220,6 +220,13 @@ REQUEST_DELAY_SECONDS = 1.0  # PRD: one request per second
 REQUEST_TIMEOUT_SECONDS = 40
 CACHE_MAX_AGE_HOURS = 24
 
+# LLM call budget. The SDK default is a 10-minute timeout with 2 retries, which
+# means a stalled provider can hang the chat path for ~30 min before the stub
+# fallback catches it. 20 s with a single retry keeps the worst case bounded
+# while leaving room for one slow-but-succeeding call.
+LLM_TIMEOUT_SECONDS = 20
+LLM_MAX_RETRIES = 1
+
 # [verified] TLS interception breaks the default CA bundle in this environment.
 VERIFY_TLS = False
 

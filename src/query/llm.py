@@ -278,6 +278,11 @@ class GroqClient(_HttpProvider):
         client = OpenAI(
             api_key=key,
             base_url="https://api.groq.com/openai/v1",
+            # Bounded, or a stalled provider hangs the chat path forever. The
+            # SDK default is 10 min; the PRD's latency target is 3 s, and a
+            # timeout overruns into the stub fallback rather than a dead UI.
+            timeout=config.LLM_TIMEOUT_SECONDS,
+            max_retries=config.LLM_MAX_RETRIES,
         )
         response = client.chat.completions.create(
             model=self.model,
@@ -300,7 +305,11 @@ class OpenAIClient(_HttpProvider):
     def _raw_call(self, key: str, system: str, user: str) -> str:
         from openai import OpenAI  # lazy: not a hard dependency
 
-        client = OpenAI(api_key=key)
+        client = OpenAI(
+            api_key=key,
+            timeout=config.LLM_TIMEOUT_SECONDS,
+            max_retries=config.LLM_MAX_RETRIES,
+        )
         response = client.chat.completions.create(
             model=self.model,
             temperature=0,
@@ -335,7 +344,7 @@ class GeminiClient(_HttpProvider):
             },
         }
         response = requests.post(
-            url, json=payload, timeout=config.REQUEST_TIMEOUT_SECONDS
+            url, json=payload, timeout=config.LLM_TIMEOUT_SECONDS
         )
         response.raise_for_status()
         data = response.json()

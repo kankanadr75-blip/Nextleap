@@ -1,29 +1,34 @@
 # Disclaimer
 
-> Mutual fund investments are subject to market risks. Read all scheme related
-> documents carefully before investing. Investment in mutual funds is never
-> guaranteed and investors are advised to make their own due diligence before
-> investing. The value of investments can go down as well as up.
+## The snippet shown in the UI
 
-## ⚠ The snippet above is a reconstruction, not a verified copy
+Reproduced verbatim from the PRD ("UI and disclaimer" → *Disclaimer snippet
+(deliverable)*):
 
-`implementation.md` Phase 7 task 7 requires the snippet "verbatim", but the
-`PRD` file in this repository is **0 bytes** - it is empty, and the snippet
-appears nowhere else in the tree. So the wording above is standard SEBI/AMFI
-boilerplate written to fit the brief, **not** text recovered from your PRD.
+> Facts-only. No investment advice. This assistant shares publicly available
+> information about selected HDFC Mutual Fund schemes and cites a source for
+> every answer. It does not recommend buying, selling or holding any scheme.
+> Mutual fund investments are subject to market risks; read all scheme-related
+> documents carefully. For personal advice, consult a SEBI-registered investment
+> adviser.
 
-**Replace it with the real text before this ships.** Drop the snippet in from the
-PRD and delete this section. The `Sources checked` note at the bottom lists what
-was searched, so you can see the gap rather than take my word for it.
+In the running app this is rendered as the persistent note beneath the input,
+via `config.FACTS_ONLY_NOTE` — asserted by `tests/test_ui.py`.
 
-What *is* verified is task 7's sibling requirement, at `implementation.md` line
-325: the UI carries a persistent *"Facts-only. No investment advice."* note
-beneath the input, asserted by `tests/test_ui.py`.
+**Provenance note.** The `PRD` file in this repository is 0 bytes, so the snippet
+could not be read from the tree. It was taken from
+`Downloads/PRD_Mutual_Fund_FAQ_Assistant.docx`, which is the source document for
+this project. If that file is not the PRD you meant, replace this section.
+
+The PRD also specifies this input hint, which the UI renders as the chat input's
+placeholder area:
+
+> Please don't share PAN, Aadhaar, account numbers, OTPs, email or phone.
 
 ## What this project is, and is not
 
-This is a **facts-only retrieval demo** over five HDFC Mutual Fund schemes. It
-is not a distribution platform, not a registered investment adviser, and not a
+This is a **facts-only retrieval demo** over five HDFC Mutual Fund schemes. It is
+not a distribution platform, not a registered investment adviser, and not a
 recommendation of any scheme.
 
 Concretely, the assistant will not:
@@ -41,11 +46,11 @@ SEBI-registered adviser.
 
 Every answer cites exactly one source, and the source is a **distributor
 platform (Groww), not the fund house**. Values reflect the **fetch date**, not
-live data - the ingest date appears in the footer of every reply as
+live data — the ingest date appears in the footer of every reply as
 *"Last updated from sources: <date>"*.
 
 Verify anything that matters against the official
-[HDFC Mutual Fund documents](https://www.hdfcfund.com/) - the Scheme Information
+[HDFC Mutual Fund documents](https://www.hdfcfund.com/) — the Scheme Information
 Document (SID), Key Information Memorandum (KIM) and the monthly factsheet.
 Those are the authoritative versions; this demo is not.
 
@@ -53,7 +58,7 @@ Those are the authoritative versions; this demo is not.
 
 Nothing here creates an adviser-client or fiduciary relationship. The assistant
 is software that quotes a small, fixed set of indexed documents, and it is wrong
-in ways a human adviser would not be - it cannot know your circumstances, and it
+in ways a human adviser would not be — it cannot know your circumstances, and it
 will confidently refuse a question that a human could answer.
 
 ## Open items
@@ -62,23 +67,6 @@ will confidently refuse a question that a human could answer.
   download procedures in `data/manual/statement_steps.json` carry
   `"ui_verified": false`; the exact menu labels have not been confirmed against
   a live CAMS or KFintech login. Treat those answers as indicative.
-- **Source policy needs sign-off.** hdfcfund.com returns HTTP 403 to
-  automated requests, so official SID/KIM/factsheet documents could not be
-  ingested automatically and are cited but never fetched. See `sources.csv`.
-
-## Sources checked for the snippet
-
-Searched, all empty or absent:
-
-| Source | Result |
-|---|---|
-| `PRD` (repo root) | 0 bytes |
-| `architecture.md` | no disclaimer snippet |
-| `implementation.md` | describes the task, does not contain it |
-| `src/query/config.py` | only the refusal and facts-only copy |
-| `data/manual/statement_steps.json` | no disclaimer snippet |
-
-Note: `implementation.md` line 347 attributes `DISCLAIMER.md` to Phase 7 task 7
-while the summary at the top of this file lists it under Phase 6 - the task
-numbering in the plan is inconsistent, but the requirement itself is
-unambiguous.
+- **Source policy needs sign-off.** hdfcfund.com returns HTTP 403 to automated
+  requests, so official SID/KIM/factsheet documents could not be ingested
+  automatically and are cited but never fetched. See `sources.csv`.

@@ -10,7 +10,7 @@ makes is to an LLM provider, and only if you configure one — with no key at al
 it uses an offline extractive stub and works exactly the same.
 
 ```
-python -m pytest tests/ -q        # 151 passed
+python -m pytest tests/ -q        # 152 passed
 streamlit run app.py              # the chat UI
 ```
 
@@ -75,6 +75,9 @@ Two things that will bite you:
   to `StubLLM` with only a log warning, because the chat path must never raise.
   A wrong key therefore looks like success. Check the client, not the answers:
   `python -c "from src.query.llm import get_llm; print(get_llm().name)"`.
+- **Every call is time-bounded** at 20 s with one retry. The openai SDK defaults
+  are a 10-minute timeout with 2 retries, which would hang the chat path for
+  roughly half an hour on a stalled provider before the stub fallback caught it.
 - **`openai` is pinned to 1.x on purpose.** 3.x pulls in `httpx2`, whose
   response decoder is incompatible with this machine's compression modules
   (`TypeError: process() takes no keyword arguments`) — and because it fails
@@ -94,25 +97,27 @@ it writes `tests/_metrics.json`.
 | Advice / performance refused | 100% | **100.0%** (25/25) |
 | PII blocked | 100% | **100.0%** (6/6) |
 | Retrieval top-5 (hard group) | ≥ 85% | **100.0%** (12/12) |
-| Median latency, answered | < 3 s | **1.16 s** |
+| Median latency, answered | < 3 s | **1.26 s** |
 
 Also measured:
 
 - Retrieval top-1 on the hard group: **75.0%** (9/12). Top-5 is 12/12, so the
   reranker-free pipeline puts the right chunk in the candidate set every time
   and the generator picks it out.
-- Latency, answered questions (n=20): median 1.16 s, p95 7.31 s, max 7.32 s.
+- Latency, answered questions (n=20): median 1.26 s, p95 6.36 s, max 7.30 s.
   The tail is the hosted provider, not the local stack — retrieval alone is
-  ~28 ms median.
+  ~28 ms median. Every call is capped at 20 s / 1 retry
+  (`config.LLM_TIMEOUT_SECONDS`), so the worst case is bounded rather than open.
 - Latency, refusals (n=31): median 0.1 ms. A guard block never reaches
   retrieval or the LLM.
-- Cold start: ~39 s, paid once per server process and cached via
+- Cold start: ~34 s, paid once per server process and cached via
   `@st.cache_resource`.
 
 Honest caveat on the latency target: the median passes, the p95 does not. A
 3-second target is comfortable for a local stub and tight for a network LLM.
-The 7.3 s tail is Groq queueing, and it would fail a p95-based reading of the
-requirement.
+The 6.4 s tail is Groq queueing, and it would fail a p95-based reading of the
+requirement. Re-measured numbers drift by a few hundred ms run to run; the
+figures above are one real run, and `tests/eval_metrics.py` reproduces them.
 
 Retrieval was tuned on the golden set: `DISTANCE_THRESHOLD = 0.65`, swept
 0.4 → 0.8 (`tests/eval_retrieval.py`). 0.6 also passes; 0.65 leaves headroom.
@@ -213,15 +218,34 @@ Two open items need a human, and are **not** fixed in this build:
 2. **Source-policy sign-off.** Someone must accept the Groww-sourced corpus, or
    supply the HDFC SID/KIM/factsheet PDFs manually for ingestion.
 
-One evaluation gap I found and did not close: all 12 `hard` golden cases name a
-scheme, so scheme-less attribute questions are untested. A bare
-"charges for managing" lands at distance 0.670, just past the threshold, and
-refuses via FR-8. Whether that is the right answer needs a product call — the
-bot does not know which scheme you mean.
+### Unresolved: scheme-less attribute questions
 
-`DISCLAIMER.md` carries a reconstruction of the required snippet, **not** a
-verified copy: the `PRD` file in this repo is 0 bytes, so the exact wording could
-not be recovered. Replace it before shipping.
+All 12 `hard` golden cases name a scheme, so scheme-less attribute questions are
+untested. Probed directly, the behaviour is inconsistent:
+
+| Query | distance | Behaviour |
+|---|---|---|
+| `what is the expense ratio` | 0.464 | answers, lists all 5 |
+| `minimum SIP amount` | 0.381 | answers, lists all 5 |
+| `riskometer level` | 0.553 | answers "Moderately High" (true for all 5) |
+| `who is the fund manager` | 0.375 | **answers "Prashant Jain" only** |
+| `exit load` | 0.683 | refuses (FR-8) |
+| `benchmark index` | 0.658 | refuses (FR-8) |
+
+`who is the fund manager` is the problem case. Two of the five schemes are managed
+by Prashant Jain, so it returns a confident single name with a Flexi Cap citation
+to a question that named no scheme. The value is real, so it is not wrong — but it
+silently picks a scheme. `exit load` and `benchmark index` are indexed, differ
+per scheme, and land just past the threshold, so they refuse.
+
+**This needs a product decision**, so it is left as-is rather than guessed: should
+a scheme-less attribute question name all five schemes, or disambiguate the way
+`HDFC fund` does?
+
+`DISCLAIMER.md` reproduces the required UI snippet **verbatim** from the PRD.
+The `PRD` file in this repo is 0 bytes, so the text was taken from
+`Downloads/PRD_Mutual_Fund_Assistant.docx` — the provenance is recorded in
+`DISCLAIMER.md` itself.
 
 ## Layout
 
@@ -247,7 +271,7 @@ chroma_db/                vector store (derived, git-ignored)
 
 ## Tests
 
-151 tests, no network and no API key required. `tests/test_ui.py` drives the real
+152 tests, no network and no API key required. `tests/test_ui.py` drives the real
 `app.py` through `streamlit.testing.v1.AppTest` — an HTTP 200 from `streamlit run`
 proves nothing, because that is only the static shell while the script itself runs
 over a websocket.

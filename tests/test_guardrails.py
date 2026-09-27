@@ -451,6 +451,58 @@ def test_networked_providers_satisfy_the_llmclient_name_contract() -> None:
         assert callable(client.complete_json)
 
 
+def test_llm_calls_are_time_bounded() -> None:
+    """No provider may hang the chat path on its default timeout.
+
+    The openai SDK defaults to a 10-minute timeout with 2 retries, so an
+    unreachable provider would stall a user for roughly half an hour before the
+    stub fallback rescued it. Every client must pass an explicit budget.
+    """
+    assert config.LLM_TIMEOUT_SECONDS <= 30, "budget must suit a 3 s latency target"
+    assert config.LLM_MAX_RETRIES <= 2, "retries multiply the worst case"
+
+    groq = GroqClient()
+    captured: dict[str, object] = {}
+
+    class _FakeCompletions:
+        def create(self, **kwargs: object) -> object:
+            class _Msg:
+                content = '{"answer": "", "source_chunk_id": ""}'
+
+            class _Choice:
+                message = _Msg()
+
+            class _Resp:
+                choices = [_Choice()]
+
+            return _Resp()
+
+    class _FakeClient:
+        def __init__(self, **kwargs: object) -> None:
+            captured.update(kwargs)
+
+        class chat:  # noqa: N801 - mirrors the SDK's attribute name
+            completions = _FakeCompletions()
+
+    import sys
+    import types
+
+    fake_module = types.ModuleType("openai")
+    fake_module.OpenAI = _FakeClient  # type: ignore[attr-defined]
+    monkey = sys.modules.get("openai")
+    sys.modules["openai"] = fake_module
+    try:
+        assert groq._raw_call("k", "s", "u") == '{"answer": "", "source_chunk_id": ""}'
+    finally:
+        if monkey is not None:
+            sys.modules["openai"] = monkey
+        else:
+            del sys.modules["openai"]
+
+    assert captured.get("timeout") == config.LLM_TIMEOUT_SECONDS
+    assert captured.get("max_retries") == config.LLM_MAX_RETRIES
+
+
 def test_model_env_var_overrides_the_default(monkeypatch: pytest.MonkeyPatch) -> None:
     """``GROQ_MODEL`` and friends select the model, as documented in .env."""
     monkeypatch.setenv("GROQ_MODEL", "openai/gpt-oss-20b")

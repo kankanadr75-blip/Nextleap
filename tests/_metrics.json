@@ -7,7 +7,7 @@
     "advice/performance refused": "25/25 = 100.0%",
     "PII blocked": "6/6 = 100.0%",
     "retrieval top-5 (hard group)": "12/12 = 100.0%",
-    "median latency (answered)": "1164 ms"
+    "median latency (answered)": "1257 ms"
   },
   "gate_results": {
     "factual accuracy": true,
@@ -26,11 +26,11 @@
     12,
     12
   ],
-  "latency_answered_median_ms": 1163.6,
-  "latency_answered_p95_ms": 7309.9,
-  "latency_answered_max_ms": 7321.5,
+  "latency_answered_median_ms": 1257.4,
+  "latency_answered_p95_ms": 6360.8,
+  "latency_answered_max_ms": 7300.6,
   "latency_refused_median_ms": 0.1,
-  "cold_start_ms": 38957.6,
+  "cold_start_ms": 34251.1,
   "n_answered": 20,
   "n_refused": 31,
   "failures": []

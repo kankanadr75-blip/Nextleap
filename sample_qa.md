@@ -19,7 +19,7 @@ because none of them is left to the model.
 
 **Q.** What is the expense ratio of HDFC Flexi Cap Fund?
 
-_Top-1 distance 0.151 (threshold 0.65), 41648 ms._
+_Top-1 distance 0.151 (threshold 0.65), 36281 ms._
 
 **A.**
 
@@ -31,7 +31,7 @@ _Top-1 distance 0.151 (threshold 0.65), 41648 ms._
 
 **Q.** What is the minimum SIP for HDFC Small Cap Fund?
 
-_Top-1 distance 0.158 (threshold 0.65), 36 ms._
+_Top-1 distance 0.158 (threshold 0.65), 80 ms._
 
 **A.**
 
@@ -43,7 +43,7 @@ _Top-1 distance 0.158 (threshold 0.65), 36 ms._
 
 **Q.** What is the exit load of HDFC Large Cap Fund?
 
-_Top-1 distance 0.181 (threshold 0.65), 30 ms._
+_Top-1 distance 0.181 (threshold 0.65), 33 ms._
 
 **A.**
 
@@ -55,11 +55,11 @@ _Top-1 distance 0.181 (threshold 0.65), 30 ms._
 
 **Q.** What is the lock-in period for HDFC ELSS Tax Saver?
 
-_Top-1 distance 0.198 (threshold 0.65), 30 ms._
+_Top-1 distance 0.356 (threshold 0.65), 31 ms._
 
 **A.**
 
-> The lock-in period for HDFC ELSS Tax Saver is 3 years from the date of each investment.
+> The context does not specify the lock-in period.
 > Source: https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
 > Last updated from sources: 2026-09-27
 
@@ -67,7 +67,7 @@ _Top-1 distance 0.198 (threshold 0.65), 30 ms._
 
 **Q.** Who manages HDFC Balanced Advantage Fund?
 
-_Top-1 distance 0.205 (threshold 0.65), 25 ms._
+_Top-1 distance 0.205 (threshold 0.65), 30 ms._
 
 **A.**
 
@@ -79,7 +79,7 @@ _Top-1 distance 0.205 (threshold 0.65), 25 ms._
 
 **Q.** What benchmark does HDFC Flexi Cap Fund track?
 
-_Top-1 distance 0.229 (threshold 0.65), 28 ms._
+_Top-1 distance 0.229 (threshold 0.65), 35 ms._
 
 **A.**
 
@@ -91,7 +91,7 @@ _Top-1 distance 0.229 (threshold 0.65), 28 ms._
 
 **Q.** How do I download my capital-gains statement?
 
-_Top-1 distance 0.354 (threshold 0.65), 25 ms._
+_Top-1 distance 0.354 (threshold 0.65), 30 ms._
 
 **A.**
 

@@ -1,0 +1,18 @@
+# Telemetry is disabled deliberately.
+#
+# The PRD's no-persistence NFR covers user data, and Streamlit's usage stats do
+# not include chat content - but "runs fully locally" is easier to defend when
+# nothing is phoning home at all. The app makes no outbound request unless an
+# LLM provider is explicitly configured.
+[browser]
+gatherUsageStats = false
+
+[server]
+# No usage stats, and keep the app bound to localhost: it is not a public
+# service and should not be reachable from the network.
+address = "127.0.0.1"
+
+headless = true
+
+[theme]
+base = "light"

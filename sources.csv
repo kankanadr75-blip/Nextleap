@@ -1,0 +1,14 @@
+scheme_slug,display_name,source_url,source_type,tier,fetch_status,fetched_at
+hdfc-large-cap,HDFC Large Cap Fund – Direct Growth,https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth,groww,corpus,ok,2026-09-27
+hdfc-flexi-cap,HDFC Flexi Cap Fund – Direct Growth,https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth,groww,corpus,ok,2026-09-27
+hdfc-elss-tax-saver,HDFC ELSS Tax Saver – Direct Plan Growth,https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth,groww,corpus,ok,2026-09-27
+hdfc-small-cap,HDFC Small Cap Fund – Direct Growth,https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth,groww,corpus,ok,2026-09-27
+hdfc-balanced-advantage,HDFC Balanced Advantage Fund – Direct Growth,https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth,groww,corpus,ok,2026-09-27
+amfi-investor-corner,,https://www.amfiindia.com/investor,amfi,citation_only,ok,
+amfi-risk-knowledge-centre,,https://www.amfiindia.com/investor/knowledge-center-info?zoneName=riskInMutualFunds,amfi,citation_only,ok,
+sebi-investor-home,,https://investor.sebi.gov.in/index.html,sebi,citation_only,unreachable,
+sebi-riskometer,,https://investor.sebi.gov.in/riskometer.html,sebi,citation_only,unreachable,
+hdfc-amc-home,,https://www.hdfcfund.com/,amc_sid,citation_only,blocked_403,
+kfin-investor-portal,,https://mfs.kfintech.com/investor/,rta,citation_only,ok,
+kfin-shareholder-services,,https://investor.kfintech.com/,rta,citation_only,ok,
+cams-rta-home,,https://www.camsonline.com/,rta,citation_only,ok,

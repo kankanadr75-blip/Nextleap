@@ -1,0 +1,270 @@
+{
+  "_note": [
+    "Retrieval-labelled subset of the golden set (implementation.md Phase 4).",
+    "Phase 7 extends this with advice/performance, PII and out-of-scope cases,",
+    "which are guardrail cases rather than retrieval cases.",
+    "",
+    "Each case carries the chunk that *should* win: expected_scheme plus",
+    "expected_attribute identify the target chunk, and expected_source_url",
+    "pinpoints the page. A hit is a top-k match on BOTH scheme and attribute,",
+    "which is stricter than matching on scheme alone and is what the PRD's",
+    "retrieval hit-rate metric really means."
+  ],
+  "cases": [
+    {
+      "query": "What is the expense ratio of HDFC Flexi Cap Fund?",
+      "expected_scheme": "hdfc-flexi-cap",
+      "expected_attribute": "expense_ratio",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "expense ratio of flexi cap",
+      "expected_scheme": "hdfc-flexi-cap",
+      "expected_attribute": "expense_ratio",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "What is the exit load on HDFC Large Cap Fund?",
+      "expected_scheme": "hdfc-large-cap",
+      "expected_attribute": "exit_load",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "HDFC large cap exit load and holding period",
+      "expected_scheme": "hdfc-large-cap",
+      "expected_attribute": "exit_load",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "What benchmark does HDFC Large Cap Fund track?",
+      "expected_scheme": "hdfc-large-cap",
+      "expected_attribute": "benchmark",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "minimum SIP for HDFC Small Cap Fund",
+      "expected_scheme": "hdfc-small-cap",
+      "expected_attribute": "min_sip",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "Who manages HDFC Small Cap Fund?",
+      "expected_scheme": "hdfc-small-cap",
+      "expected_attribute": "fund_manager",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "What category is HDFC Small Cap Fund?",
+      "expected_scheme": "hdfc-small-cap",
+      "expected_attribute": "category",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "What is the lock-in period for HDFC ELSS Tax Saver?",
+      "expected_scheme": "hdfc-elss-tax-saver",
+      "expected_attribute": "lock_in",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth",
+      "group": "factual"
+    },
+    {
+      "query": "ELSS lock in period",
+      "expected_scheme": "hdfc-elss-tax-saver",
+      "expected_attribute": "lock_in",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth",
+      "group": "factual"
+    },
+    {
+      "query": "minimum SIP amount for HDFC ELSS Tax Saver",
+      "expected_scheme": "hdfc-elss-tax-saver",
+      "expected_attribute": "min_sip",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth",
+      "group": "factual"
+    },
+    {
+      "query": "expense ratio of HDFC ELSS Tax Saver Direct Plan Growth",
+      "expected_scheme": "hdfc-elss-tax-saver",
+      "expected_attribute": "expense_ratio",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth",
+      "group": "factual"
+    },
+    {
+      "query": "riskometer level of HDFC Balanced Advantage Fund",
+      "expected_scheme": "hdfc-balanced-advantage",
+      "expected_attribute": "riskometer",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "What is the benchmark of HDFC Balanced Advantage Fund?",
+      "expected_scheme": "hdfc-balanced-advantage",
+      "expected_attribute": "benchmark",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "exit load on HDFC Balanced Advantage Fund",
+      "expected_scheme": "hdfc-balanced-advantage",
+      "expected_attribute": "exit_load",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "What is the minimum lump sum amount for HDFC Flexi Cap Fund?",
+      "expected_scheme": "hdfc-flexi-cap",
+      "expected_attribute": "min_lumpsum",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+      "group": "factual"
+    },
+    {
+      "query": "How do I download my capital-gains statement?",
+      "expected_scheme": "general",
+      "expected_attribute": "statement_download",
+      "expected_source_url": null,
+      "group": "statement"
+    },
+    {
+      "query": "Where can I get a consolidated account statement?",
+      "expected_scheme": "general",
+      "expected_attribute": "statement_download",
+      "expected_source_url": null,
+      "group": "statement"
+    },
+    {
+      "query": "How do I get my tax statement for income tax filing?",
+      "expected_scheme": "general",
+      "expected_attribute": "statement_download",
+      "expected_source_url": null,
+      "group": "statement"
+    },
+    {
+      "query": "which RTA holds my HDFC Mutual Fund folio",
+      "expected_scheme": "general",
+      "expected_attribute": "statement_download",
+      "expected_source_url": null,
+      "group": "statement"
+    },
+    {
+      "query": "charges for managing hdfc flexi cap",
+      "expected_scheme": "hdfc-flexi-cap",
+      "expected_attribute": "expense_ratio",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+      "group": "hard"
+    },
+    {
+      "query": "annual fee taken from hdfc equity fund",
+      "expected_scheme": "hdfc-flexi-cap",
+      "expected_attribute": "expense_ratio",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+      "group": "hard"
+    },
+    {
+      "query": "what happens if i sell small cap units before a year",
+      "expected_scheme": "hdfc-small-cap",
+      "expected_attribute": "exit_load",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth",
+      "group": "hard"
+    },
+    {
+      "query": "penalty for redeeming hdfc large cap early",
+      "expected_scheme": "hdfc-large-cap",
+      "expected_attribute": "exit_load",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth",
+      "group": "hard"
+    },
+    {
+      "query": "how much do i need to start an sip in elss",
+      "expected_scheme": "hdfc-elss-tax-saver",
+      "expected_attribute": "min_sip",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth",
+      "group": "hard"
+    },
+    {
+      "query": "smallest monthly instalment for tax saver fund",
+      "expected_scheme": "hdfc-elss-tax-saver",
+      "expected_attribute": "min_sip",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth",
+      "group": "hard"
+    },
+    {
+      "query": "who looks after the balanced advantage fund",
+      "expected_scheme": "hdfc-balanced-advantage",
+      "expected_attribute": "fund_manager",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth",
+      "group": "hard"
+    },
+    {
+      "query": "what index is small cap measured against",
+      "expected_scheme": "hdfc-small-cap",
+      "expected_attribute": "benchmark",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth",
+      "group": "hard"
+    },
+    {
+      "query": "risk level of the flexi cap scheme",
+      "expected_scheme": "hdfc-flexi-cap",
+      "expected_attribute": "riskometer",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+      "group": "hard"
+    },
+    {
+      "query": "how long must i hold elss units",
+      "expected_scheme": "hdfc-elss-tax-saver",
+      "expected_attribute": "lock_in",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth",
+      "group": "hard"
+    },
+    {
+      "query": "one time investment minimum for flexi cap",
+      "expected_scheme": "hdfc-flexi-cap",
+      "expected_attribute": "min_lumpsum",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+      "group": "hard"
+    },
+    {
+      "query": "what kind of scheme is hdfc small cap",
+      "expected_scheme": "hdfc-small-cap",
+      "expected_attribute": "category",
+      "expected_source_url": "https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth",
+      "group": "hard"
+    },
+    {
+      "query": "expence ratio of hdfc smal cap",
+      "expected_scheme": null,
+      "expected_attribute": null,
+      "expected_source_url": null,
+      "group": "hard_typo",
+      "expect_ask": true,
+      "_note": "Typos defeat exact alias matching ('smal cap' != 'small cap'), so the correct behaviour is the FR-9 disambiguation prompt, not a wrong-scheme answer. Fails if we ever guess a scheme."
+    },
+    {
+      "query": "exit load hdfc balance advantage",
+      "expected_scheme": null,
+      "expected_attribute": null,
+      "expected_source_url": null,
+      "group": "hard_typo",
+      "expect_ask": true,
+      "_note": "'balance advantage' is missing a 'd'; same reasoning as above."
+    }
+  ],
+  "scheme_detection_cases": [
+    { "query": "What is the expense ratio of HDFC Small Cap Fund?", "expected": "hdfc-small-cap" },
+    { "query": "exit load on HDFC Equity Fund", "expected": "hdfc-flexi-cap" },
+    { "query": "flexi cap benchmark", "expected": "hdfc-flexi-cap" },
+    { "query": "elss tax saver lock in", "expected": "hdfc-elss-tax-saver" },
+    { "query": "balanced advantage riskometer", "expected": "hdfc-balanced-advantage" },
+    { "query": "HDFC fund", "expected": "ambiguous" },
+    { "query": "what is the expense ratio of HDFC mutual fund?", "expected": "ambiguous" },
+    { "query": "tell me about HDFC schemes", "expected": "ambiguous" },
+    { "query": "which is better large cap or small cap", "expected": "ambiguous" },
+    { "query": "how do I download my statement", "expected": null },
+    { "query": "expense ratio", "expected": null }
+  ]
+}

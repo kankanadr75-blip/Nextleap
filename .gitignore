@@ -1,0 +1,15 @@
+# Secrets - never commit
+.env
+
+# Raw fetched HTML is ~2.5 MB and fully rebuildable with `python ingest.py`,
+# so it stays out of version control. The *outputs* of the pipeline
+# (records.json, chunks.jsonl) are small and are tracked on purpose, so you
+# can inspect and review exactly what was indexed.
+data/raw/
+chroma_db/
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/

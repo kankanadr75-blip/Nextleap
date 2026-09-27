@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "_note": [
+    "Hand-curated statement / tax-document download procedures.",
+    "These are NOT present in the scheme page JSON payload - [verified] the",
+    "__NEXT_DATA__ record exposes only rta_details.rta_name/address/email, with",
+    "no download procedure - so the 3 statement questions in the golden set",
+    "cannot be answered from the scraped corpus alone.",
+    "",
+    "'ui_verified': false means the exact menu labels were not confirmed against",
+    "a live login. The steps are deliberately generic (portal -> statements or",
+    "reports -> choose financial year -> download) and point at the RTA portal",
+    "rather than deep links that could rot. Review before demoing.",
+    "",
+    "HDFC Mutual Fund folios are serviced by CAMS as registrar and transfer",
+    "agent [verified: rta_details.rta_name == 'Cams']. KFintech covers folios",
+    "transferred from other AMCs, so users may need either portal.",
+    "",
+    "Do NOT cite a groww.in /report/ path: it is disallowed by robots.txt."
+  ],
+  "entries": [
+    {
+      "id": "find_rta",
+      "title": "Find which RTA holds your HDFC Mutual Fund folio",
+      "attribute": "statement_download",
+      "source_type": "rta",
+      "source_url": "https://mfs.kfintech.com/investor/",
+      "ui_verified": false,
+      "steps": [
+        "HDFC Mutual Fund folios are serviced by CAMS as the registrar and transfer agent, so most HDFC Mutual Fund investors use the CAMS portal.",
+        "If your folio was opened with another AMC and later transferred to HDFC Mutual Fund, it may sit with KFintech instead.",
+        "Check your folio number on your latest statement or account maintenance form to see which RTA holds it, then use that RTA's portal."
+      ]
+    },
+    {
+      "id": "consolidated_account_statement",
+      "title": "Download a consolidated account statement (CAS)",
+      "attribute": "statement_download",
+      "source_type": "rta",
+      "source_url": "https://www.camsonline.com/",
+      "ui_verified": false,
+      "steps": [
+        "Log in to your RTA's investor portal with your folio number and credentials; CAMS uses a mobile number or email plus PAN, and KFintech uses a similar login.",
+        "Open the statements or My Account section and choose Consolidated Account Statement.",
+        "Select the financial year or date range, and the folios to include if you have more than one.",
+        "Download the statement as a PDF and save it. Consolidated statements can be large, so request one year at a time."
+      ]
+    },
+    {
+      "id": "capital_gains_statement",
+      "title": "Download a capital-gains statement",
+      "attribute": "statement_download",
+      "source_type": "rta",
+      "source_url": "https://www.camsonline.com/",
+      "ui_verified": false,
+      "steps": [
+        "Log in to your RTA's investor portal and go to the reports or tax section.",
+        "Choose Capital Gains Statement, then select the financial year in which the units were sold.",
+        "Pick the file format you need: a readable PDF, an Excel or CSV for your own records, or the ITR-ready XML/XML schema file your tax preparer may ask for.",
+        "Download and keep the file with your tax records, since the same details are needed at income-tax filing time."
+      ]
+    },
+    {
+      "id": "tax_report",
+      "title": "Download the annual tax summary for income-tax filing",
+      "attribute": "statement_download",
+      "source_type": "rta",
+      "source_url": "https://www.camsonline.com/",
+      "ui_verified": false,
+      "steps": [
+        "Log in to your RTA's investor portal and open the tax or tax reports section.",
+        "Request the annual tax statement for the relevant financial year; it lists dividend income and realised capital gains per scheme.",
+        "Download the file, then use it to cross-check the figures in your income-tax return before you file.",
+        "Note that mutual fund tax rules changed for units bought on or after 1 April 2023, so check the holding period shown for each transaction rather than assuming an older rule."
+      ]
+    },
+    {
+      "id": "general_investor_guidance",
+      "title": "Where to find official fund documents and investor education",
+      "attribute": "statement_download",
+      "source_type": "amfi",
+      "source_url": "https://www.amfiindia.com/investor",
+      "ui_verified": true,
+      "steps": [
+        "AMFI's Investor Corner is the industry body one-stop hub for mutual fund knowledge, scheme categorisation and risk-o-meter explainers.",
+        "For scheme-specific charges, investment objective and risk details, read the official HDFC Mutual Fund SID, KIM and monthly factsheet for that scheme.",
+        "Keep the factsheet: it is the official monthly document that carries a scheme's expense ratio, benchmark and portfolio disclosures."
+      ]
+    }
+  ]
+}

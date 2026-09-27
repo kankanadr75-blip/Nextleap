@@ -1,0 +1,1234 @@
+====================================================================================================
+MUTUAL FUND FAQ ASSISTANT - CHUNKS AND EMBEDDINGS (human review dump)
+====================================================================================================
+
+Generated              : C:\Users\Kankana Dhar\OneDrive\Desktop\Cursor\data\processed
+Embedding model        : sentence-transformers/all-MiniLM-L6-v2
+Vector dimensions      : 384
+Normalisation          : L2 (normalize_embeddings=True), so cosine
+                        distance is meaningful in [0, 2]; lower = closer.
+Vector store           : ChromaDB 'hdfc_mf_faq', cosine space
+Collection documents   : 62
+Chunks in chunks.jsonl : 62
+Full raw vectors       : embeddings_full.txt
+
+WHAT IS EMBEDDED
+----------------------------------------------------------------------------------------------------
+The embedded string is the chunk's context header plus its text:
+    <Scheme> | <Section> | <Source type>. <fact sentence>
+The header is inside the vector on purpose - it is what keeps five
+near-identical scheme pages from being confused with each other.
+
+CHUNKS BY SCHEME
+----------------------------------------------------------------------------------------------------
+   11  hdfc-large-cap             HDFC Large Cap Fund – Direct Growth
+   11  hdfc-flexi-cap             HDFC Flexi Cap Fund – Direct Growth
+   13  hdfc-elss-tax-saver        HDFC ELSS Tax Saver – Direct Plan Growth
+   11  hdfc-small-cap             HDFC Small Cap Fund – Direct Growth
+   11  hdfc-balanced-advantage    HDFC Balanced Advantage Fund – Direct Growth
+    5  general                    (scheme-agnostic)
+
+CHUNKS BY TYPE
+----------------------------------------------------------------------------------------------------
+   52  fact_card
+    5  prose
+    5  steps
+
+====================================================================================================
+LIVE SIMILARITY CHECK (proof the vectors retrieve the right chunk)
+====================================================================================================
+
+Each query is embedded with the same model and compared against every
+stored chunk. Distance 0.0 = identical direction, higher = further away.
+The query path uses a cutoff of 0.6.
+
+QUERY: "What is the expense ratio of HDFC Flexi Cap Fund?"
+----------------------------------------------------------------------------------------------------
+  #1  distance=0.1572  scheme=hdfc-flexi-cap  attribute=expense_ratio
+      HDFC Flexi Cap Fund – Direct Growth | Expense ratio | Groww scheme page. HDFC Flexi Cap Fund – Direct Growth: the expense ratio is 0.77% per annum.
+  #2  distance=0.1746  scheme=hdfc-flexi-cap  attribute=base_expense_ratio
+      HDFC Flexi Cap Fund – Direct Growth | Base expense ratio | Groww scheme page. HDFC Flexi Cap Fund – Direct Growth: the base expense ratio (before the 
+  #3  distance=0.2247  scheme=hdfc-flexi-cap  attribute=min_lumpsum
+      HDFC Flexi Cap Fund – Direct Growth | Minimum lump-sum | Groww scheme page. HDFC Flexi Cap Fund – Direct Growth: the minimum lump-sum investment is ₹1
+
+QUERY: "What is the lock-in period for HDFC ELSS Tax Saver?"
+----------------------------------------------------------------------------------------------------
+  #1  distance=0.2081  scheme=hdfc-elss-tax-saver  attribute=lock_in
+      HDFC ELSS Tax Saver – Direct Plan Growth | Lock-in | Groww scheme page. HDFC ELSS Tax Saver – Direct Plan Growth: the lock-in period is 3 years from t
+  #2  distance=0.3681  scheme=hdfc-elss-tax-saver  attribute=tax_status
+      HDFC ELSS Tax Saver – Direct Plan Growth | Tax status | Groww scheme page. HDFC ELSS Tax Saver – Direct Plan Growth: the fund has ELSS tax-saving stat
+  #3  distance=0.3839  scheme=hdfc-elss-tax-saver  attribute=objective
+      HDFC ELSS Tax Saver – Direct Plan Growth | Scheme objective | Groww scheme page. The scheme seeks to generate capital appreciation / income from a por
+
+QUERY: "How do I download my capital-gains statement?"
+----------------------------------------------------------------------------------------------------
+  #1  distance=0.3924  scheme=general  attribute=statement_download
+      HDFC Mutual Fund schemes | Download a capital-gains statement | RTA investor portal. Step 1: Log in to your RTA's investor portal and go to the report
+  #2  distance=0.5558  scheme=general  attribute=statement_download
+      HDFC Mutual Fund schemes | Download the annual tax summary for income-tax filing | RTA investor portal. Step 1: Log in to your RTA's investor portal a
+  #3  distance=0.5962  scheme=general  attribute=statement_download
+      HDFC Mutual Fund schemes | Download a consolidated account statement (CAS) | RTA investor portal. Step 1: Log in to your RTA's investor portal with yo
+
+====================================================================================================
+EVERY CHUNK, WITH EMBEDDING PREVIEW
+====================================================================================================
+
+[  1/62] 3d1baae9230f_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 37 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Expense ratio | Groww scheme page. HDFC Large Cap Fund
+    – Direct Growth: the expense ratio is 1.03% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.1186, -0.0670, -0.0569, +0.0254, +0.1379, +0.0148, -0.0013, +0.0338, -0.0559, +0.0446, -0.0249, -0.0730]
+    ... 372 more dims in embeddings_full.txt
+
+[  2/62] c4823d1a15d8_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : base_expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 48 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Base expense ratio | Groww scheme page. HDFC Large Cap
+    Fund – Direct Growth: the base expense ratio (before the additional fund-expense charge) is
+    0.84% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.1191, -0.0548, -0.0489, +0.0153, +0.1534, +0.0131, -0.0072, +0.0470, -0.0528, +0.0495, -0.0133, -0.0829]
+    ... 372 more dims in embeddings_full.txt
+
+[  3/62] c975dbd82437_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : exit_load
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 40 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Exit load | Groww scheme page. HDFC Large Cap Fund –
+    Direct Growth: the exit load is 1% if redeemed within 1 year.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0860, -0.0735, -0.0418, +0.0286, +0.1220, +0.0147, -0.0055, +0.0658, -0.0636, +0.0555, -0.0065, -0.0407]
+    ... 372 more dims in embeddings_full.txt
+
+[  4/62] 46d6258e1264_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : min_sip
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 34 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Minimum SIP | Groww scheme page. HDFC Large Cap Fund –
+    Direct Growth: the minimum SIP amount is ₹100.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0821, -0.0553, -0.0764, -0.0080, +0.0685, +0.0082, +0.0148, +0.0937, -0.0570, +0.0333, -0.0002, -0.0995]
+    ... 372 more dims in embeddings_full.txt
+
+[  5/62] 63471a6c1552_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : min_lumpsum
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 38 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Minimum lump-sum | Groww scheme page. HDFC Large Cap
+    Fund – Direct Growth: the minimum lump-sum investment is ₹100.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0931, -0.0523, -0.0665, +0.0114, +0.0874, +0.0290, +0.0080, +0.0944, -0.0620, +0.0471, -0.0258, -0.0814]
+    ... 372 more dims in embeddings_full.txt
+
+[  6/62] 82e745c38294_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : riskometer
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 34 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Riskometer | Groww scheme page. HDFC Large Cap Fund –
+    Direct Growth: the riskometer level is Moderately High.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0991, -0.1054, -0.0499, +0.0404, +0.1529, +0.0233, -0.0184, +0.0560, -0.0649, +0.0468, -0.0156, -0.0598]
+    ... 372 more dims in embeddings_full.txt
+
+[  7/62] 790e3272af2a_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : benchmark
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 46 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Benchmark | Groww scheme page. HDFC Large Cap Fund –
+    Direct Growth: the benchmark index is NIFTY 100 TRI (NIFTY 100 Total Return Index).
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0514, -0.0857, -0.0689, +0.0336, +0.1107, +0.0094, -0.0082, +0.0482, -0.0726, +0.0291, -0.0411, -0.0685]
+    ... 372 more dims in embeddings_full.txt
+
+[  8/62] 4bedd66ab4bb_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : fund_manager
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 35 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Fund manager | Groww scheme page. HDFC Large Cap Fund
+    – Direct Growth: the fund manager is Prashant Jain.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0800, -0.0860, -0.0633, +0.0184, +0.1146, +0.0261, +0.0086, +0.0263, -0.0881, +0.0423, -0.0034, -0.0706]
+    ... 372 more dims in embeddings_full.txt
+
+[  9/62] f949f3c04b52_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : category
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 35 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Fund category | Groww scheme page. HDFC Large Cap Fund
+    – Direct Growth: the scheme category is Equity - Large Cap.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.1018, -0.0830, -0.0454, +0.0080, +0.1180, +0.0182, -0.0132, +0.0235, -0.0570, +0.0448, -0.0016, -0.0528]
+    ... 372 more dims in embeddings_full.txt
+
+[ 10/62] 0ce059aabc49_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : rta
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 41 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Registrar and transfer agent | Groww scheme page. HDFC
+    Large Cap Fund – Direct Growth: the registrar and transfer agent (RTA) is Cams.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0046, -0.0609, -0.0996, -0.0010, +0.0733, +0.0239, +0.0170, +0.0525, -0.0270, +0.0523, +0.0252, -0.0512]
+    ... 372 more dims in embeddings_full.txt
+
+[ 11/62] 49efd1f1924c_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-large-cap
+  attribute    : objective
+  chunk_type   : prose
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 38 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Large Cap Fund – Direct Growth | Scheme objective | Groww scheme page. The scheme seeks
+    to provide long-term capital appreciation/income by investing predominantly in Large-Cap
+    companies.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0828, -0.0692, -0.0296, +0.0020, +0.1288, +0.0358, -0.0005, +0.0471, -0.1157, +0.0376, -0.0307, -0.0412]
+    ... 372 more dims in embeddings_full.txt
+
+[ 12/62] a93f401ac84d_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 39 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Expense ratio | Groww scheme page. HDFC Flexi Cap Fund
+    – Direct Growth: the expense ratio is 0.77% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.1076, -0.0575, -0.0846, +0.0380, +0.1519, +0.0241, -0.0193, +0.0525, -0.0494, +0.0181, +0.0165, -0.0800]
+    ... 372 more dims in embeddings_full.txt
+
+[ 13/62] 9c2c421412f5_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : base_expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 50 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Base expense ratio | Groww scheme page. HDFC Flexi Cap
+    Fund – Direct Growth: the base expense ratio (before the additional fund-expense charge) is
+    0.57% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.1047, -0.0569, -0.0778, +0.0272, +0.1715, +0.0248, -0.0203, +0.0684, -0.0414, +0.0219, +0.0151, -0.0854]
+    ... 372 more dims in embeddings_full.txt
+
+[ 14/62] b9389d95f51d_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : exit_load
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 42 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Exit load | Groww scheme page. HDFC Flexi Cap Fund –
+    Direct Growth: the exit load is 1% if redeemed within 1 year.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0693, -0.0792, -0.0735, +0.0366, +0.1429, +0.0186, -0.0218, +0.0829, -0.0542, +0.0231, +0.0422, -0.0351]
+    ... 372 more dims in embeddings_full.txt
+
+[ 15/62] b99cb5e853ff_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : min_sip
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 36 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Minimum SIP | Groww scheme page. HDFC Flexi Cap Fund –
+    Direct Growth: the minimum SIP amount is ₹100.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0672, -0.0523, -0.1057, +0.0019, +0.0796, +0.0179, +0.0061, +0.1151, -0.0416, +0.0055, +0.0344, -0.0988]
+    ... 372 more dims in embeddings_full.txt
+
+[ 16/62] 0f6ab37d6428_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : min_lumpsum
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 40 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Minimum lump-sum | Groww scheme page. HDFC Flexi Cap
+    Fund – Direct Growth: the minimum lump-sum investment is ₹100.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0745, -0.0493, -0.0938, +0.0224, +0.0965, +0.0383, -0.0036, +0.1157, -0.0526, +0.0213, +0.0057, -0.0789]
+    ... 372 more dims in embeddings_full.txt
+
+[ 17/62] a66989f8d895_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : riskometer
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 36 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Riskometer | Groww scheme page. HDFC Flexi Cap Fund –
+    Direct Growth: the riskometer level is Moderately High.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0789, -0.0975, -0.0766, +0.0493, +0.1707, +0.0268, -0.0375, +0.0828, -0.0655, +0.0105, +0.0257, -0.0549]
+    ... 372 more dims in embeddings_full.txt
+
+[ 18/62] 83fac3c5a0f9_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : benchmark
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 48 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Benchmark | Groww scheme page. HDFC Flexi Cap Fund –
+    Direct Growth: the benchmark index is NIFTY 500 TRI (NIFTY 500 Total Return Index).
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0332, -0.0815, -0.0944, +0.0433, +0.1253, +0.0186, -0.0320, +0.0598, -0.0758, -0.0137, -0.0102, -0.0538]
+    ... 372 more dims in embeddings_full.txt
+
+[ 19/62] 63da2ae25494_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : fund_manager
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 37 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Fund manager | Groww scheme page. HDFC Flexi Cap Fund
+    – Direct Growth: the fund manager is Prashant Jain.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0658, -0.0850, -0.0843, +0.0286, +0.1402, +0.0354, -0.0036, +0.0456, -0.0790, +0.0145, +0.0310, -0.0684]
+    ... 372 more dims in embeddings_full.txt
+
+[ 20/62] 7baa9c70c1f3_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : category
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 38 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Fund category | Groww scheme page. HDFC Flexi Cap Fund
+    – Direct Growth: the scheme category is Equity - Flexi Cap.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0813, -0.0856, -0.0804, +0.0179, +0.1339, +0.0262, -0.0212, +0.0366, -0.0419, +0.0090, +0.0359, -0.0562]
+    ... 372 more dims in embeddings_full.txt
+
+[ 21/62] dd274379404e_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : rta
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 43 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Registrar and transfer agent | Groww scheme page. HDFC
+    Flexi Cap Fund – Direct Growth: the registrar and transfer agent (RTA) is Cams.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [-0.0192, -0.0597, -0.1202, +0.0042, +0.0972, +0.0393, +0.0157, +0.0660, -0.0139, +0.0262, +0.0595, -0.0518]
+    ... 372 more dims in embeddings_full.txt
+
+[ 22/62] 5490606f5301_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-flexi-cap
+  attribute    : objective
+  chunk_type   : prose
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 40 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Flexi Cap Fund – Direct Growth | Scheme objective | Groww scheme page. The scheme seeks
+    to generate capital appreciation / income from a portfolio, predominantly invested in equity
+    & equity related instruments.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0685, -0.0653, -0.0900, +0.0117, +0.1370, +0.0318, -0.0245, +0.0663, -0.0781, +0.0149, +0.0151, -0.0499]
+    ... 372 more dims in embeddings_full.txt
+
+[ 23/62] de52b3483695_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 43 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Expense ratio | Groww scheme page. HDFC ELSS Tax
+    Saver – Direct Plan Growth: the expense ratio is 1.21% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0780, -0.0256, -0.0563, -0.0022, +0.1531, +0.0724, -0.0280, +0.0216, -0.0456, +0.0362, -0.0078, -0.0710]
+    ... 372 more dims in embeddings_full.txt
+
+[ 24/62] 1e2645d074b6_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : base_expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 54 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Base expense ratio | Groww scheme page. HDFC ELSS
+    Tax Saver – Direct Plan Growth: the base expense ratio (before the additional fund-expense
+    charge) is 0.97% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0930, -0.0247, -0.0518, -0.0088, +0.1791, +0.0650, -0.0242, +0.0354, -0.0411, +0.0491, -0.0041, -0.0767]
+    ... 372 more dims in embeddings_full.txt
+
+[ 25/62] 81110a208bea_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : exit_load
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 39 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Exit load | Groww scheme page. HDFC ELSS Tax
+    Saver – Direct Plan Growth: the exit load is Nil.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0235, -0.0132, -0.0336, +0.0007, +0.1128, +0.0646, -0.0295, -0.0069, -0.0502, +0.0306, +0.0036, -0.0295]
+    ... 372 more dims in embeddings_full.txt
+
+[ 26/62] 89cd015634ad_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : min_sip
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 40 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Minimum SIP | Groww scheme page. HDFC ELSS Tax
+    Saver – Direct Plan Growth: the minimum SIP amount is ₹500.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0601, -0.0299, -0.0602, -0.0280, +0.0786, +0.0610, +0.0020, +0.0618, -0.0392, +0.0407, +0.0054, -0.0730]
+    ... 372 more dims in embeddings_full.txt
+
+[ 27/62] 8188e39d7de2_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : min_lumpsum
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 44 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Minimum lump-sum | Groww scheme page. HDFC ELSS
+    Tax Saver – Direct Plan Growth: the minimum lump-sum investment is ₹500.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0639, -0.0200, -0.0592, -0.0074, +0.0984, +0.0826, -0.0137, +0.0631, -0.0619, +0.0469, +0.0010, -0.0550]
+    ... 372 more dims in embeddings_full.txt
+
+[ 28/62] 457dc6905937_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : lock_in
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 48 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Lock-in | Groww scheme page. HDFC ELSS Tax Saver
+    – Direct Plan Growth: the lock-in period is 3 years from the date of each investment.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0080, -0.0580, -0.0352, -0.0081, +0.1180, +0.0913, -0.0655, -0.0162, -0.0438, +0.0487, +0.0376, +0.0085]
+    ... 372 more dims in embeddings_full.txt
+
+[ 29/62] 39d5a8d0e380_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : riskometer
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 40 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Riskometer | Groww scheme page. HDFC ELSS Tax
+    Saver – Direct Plan Growth: the riskometer level is Moderately High.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0662, -0.0593, -0.0413, +0.0165, +0.1462, +0.0914, -0.0343, +0.0464, -0.0690, +0.0413, +0.0095, -0.0410]
+    ... 372 more dims in embeddings_full.txt
+
+[ 30/62] 7e8fd88faefa_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : benchmark
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 52 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Benchmark | Groww scheme page. HDFC ELSS Tax
+    Saver – Direct Plan Growth: the benchmark index is NIFTY 500 TRI (NIFTY 500 Total Return
+    Index).
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0125, -0.0330, -0.0660, +0.0037, +0.1050, +0.0712, -0.0368, +0.0190, -0.0801, +0.0212, -0.0115, -0.0364]
+    ... 372 more dims in embeddings_full.txt
+
+[ 31/62] 2cbe2f77104d_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : fund_manager
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 43 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Fund manager | Groww scheme page. HDFC ELSS Tax
+    Saver – Direct Plan Growth: the fund manager is Vinay Kulkarni.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0254, -0.0146, -0.0655, -0.0099, +0.1245, +0.0749, -0.0194, +0.0226, -0.0583, +0.0208, +0.0071, -0.0603]
+    ... 372 more dims in embeddings_full.txt
+
+[ 32/62] 56164f677c79_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : category
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 41 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Fund category | Groww scheme page. HDFC ELSS Tax
+    Saver – Direct Plan Growth: the scheme category is Equity - ELSS.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0582, -0.0401, -0.0579, -0.0215, +0.1262, +0.0766, -0.0328, -0.0037, -0.0484, +0.0362, +0.0172, -0.0401]
+    ... 372 more dims in embeddings_full.txt
+
+[ 33/62] 773f1f908ff2_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : rta
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 47 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Registrar and transfer agent | Groww scheme page.
+    HDFC ELSS Tax Saver – Direct Plan Growth: the registrar and transfer agent (RTA) is Cams.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [-0.0371, -0.0289, -0.0995, -0.0270, +0.0994, +0.0816, -0.0034, +0.0297, -0.0167, +0.0493, +0.0467, -0.0253]
+    ... 372 more dims in embeddings_full.txt
+
+[ 34/62] 5d995c421181_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : tax_status
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 62 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Tax status | Groww scheme page. HDFC ELSS Tax
+    Saver – Direct Plan Growth: the fund has ELSS tax-saving status, so units are eligible for a
+    deduction under section 80C subject to the applicable lock-in.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0068, -0.0417, -0.0206, -0.0078, +0.1739, +0.0683, -0.0326, -0.0129, -0.0646, +0.0592, +0.0484, -0.0462]
+    ... 372 more dims in embeddings_full.txt
+
+[ 35/62] 6ad32dacc4a3_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-elss-tax-saver
+  attribute    : objective
+  chunk_type   : prose
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+  fetched_at   : 2026-09-27
+  tokens       : 42 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC ELSS Tax Saver – Direct Plan Growth | Scheme objective | Groww scheme page. The scheme
+    seeks to generate capital appreciation / income from a portfolio, comprising predominantly
+    of equity & equity related instruments.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0332, -0.0215, -0.0727, -0.0322, +0.0991, +0.0790, -0.0231, +0.0360, -0.0847, +0.0403, -0.0033, -0.0334]
+    ... 372 more dims in embeddings_full.txt
+
+[ 36/62] 1899ee3ec76a_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 37 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Expense ratio | Groww scheme page. HDFC Small Cap Fund
+    – Direct Growth: the expense ratio is 0.78% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.1319, -0.0470, -0.0613, +0.0426, +0.1478, +0.0362, -0.0004, +0.0416, -0.0537, +0.0494, +0.0039, -0.0918]
+    ... 372 more dims in embeddings_full.txt
+
+[ 37/62] 7c823d4c761e_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : base_expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 48 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Base expense ratio | Groww scheme page. HDFC Small Cap
+    Fund – Direct Growth: the base expense ratio (before the additional fund-expense charge) is
+    0.63% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.1283, -0.0393, -0.0517, +0.0313, +0.1665, +0.0316, -0.0056, +0.0527, -0.0438, +0.0524, +0.0108, -0.1012]
+    ... 372 more dims in embeddings_full.txt
+
+[ 38/62] a40200d4687d_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : exit_load
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 40 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Exit load | Groww scheme page. HDFC Small Cap Fund –
+    Direct Growth: the exit load is 1% if redeemed within 1 year.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0957, -0.0644, -0.0452, +0.0402, +0.1378, +0.0258, -0.0037, +0.0709, -0.0604, +0.0607, +0.0181, -0.0497]
+    ... 372 more dims in embeddings_full.txt
+
+[ 39/62] 1ea182f35cda_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : min_sip
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 34 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Minimum SIP | Groww scheme page. HDFC Small Cap Fund –
+    Direct Growth: the minimum SIP amount is ₹100.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0882, -0.0446, -0.0785, +0.0026, +0.0815, +0.0230, +0.0219, +0.0958, -0.0534, +0.0364, +0.0182, -0.1080]
+    ... 372 more dims in embeddings_full.txt
+
+[ 40/62] b02eb76fbf86_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : min_lumpsum
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 38 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Minimum lump-sum | Groww scheme page. HDFC Small Cap
+    Fund – Direct Growth: the minimum lump-sum investment is ₹100.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0996, -0.0411, -0.0710, +0.0219, +0.0974, +0.0428, +0.0114, +0.0991, -0.0577, +0.0479, -0.0068, -0.0932]
+    ... 372 more dims in embeddings_full.txt
+
+[ 41/62] 6d072374c658_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : riskometer
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 34 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Riskometer | Groww scheme page. HDFC Small Cap Fund –
+    Direct Growth: the riskometer level is Moderately High.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.1104, -0.0877, -0.0549, +0.0532, +0.1658, +0.0403, -0.0154, +0.0634, -0.0643, +0.0493, +0.0092, -0.0690]
+    ... 372 more dims in embeddings_full.txt
+
+[ 42/62] 5da3d4d719e7_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : benchmark
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 48 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Benchmark | Groww scheme page. HDFC Small Cap Fund –
+    Direct Growth: the benchmark index is BSE 250 SmallCap TRI (BSE 250 SmallCap Total Return
+    Index).
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0792, -0.0712, -0.0433, +0.0578, +0.1365, +0.0335, -0.0079, +0.0626, -0.0789, +0.0434, -0.0353, -0.0834]
+    ... 372 more dims in embeddings_full.txt
+
+[ 43/62] 2c7162c7e80e_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : fund_manager
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 37 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Fund manager | Groww scheme page. HDFC Small Cap Fund
+    – Direct Growth: the fund manager is Chirag Setalvad.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0910, -0.0621, -0.0509, +0.0279, +0.1040, +0.0565, -0.0014, +0.0463, -0.0821, +0.0676, +0.0337, -0.0832]
+    ... 372 more dims in embeddings_full.txt
+
+[ 44/62] de1bcc2c22f3_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : category
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 35 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Fund category | Groww scheme page. HDFC Small Cap Fund
+    – Direct Growth: the scheme category is Equity - Small Cap.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.1125, -0.0662, -0.0515, +0.0251, +0.1327, +0.0384, -0.0084, +0.0312, -0.0529, +0.0455, +0.0266, -0.0679]
+    ... 372 more dims in embeddings_full.txt
+
+[ 45/62] ae26f0c4cae7_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : rta
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 41 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Registrar and transfer agent | Groww scheme page. HDFC
+    Small Cap Fund – Direct Growth: the registrar and transfer agent (RTA) is Cams.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0113, -0.0470, -0.1010, +0.0136, +0.0882, +0.0384, +0.0201, +0.0585, -0.0219, +0.0552, +0.0457, -0.0600]
+    ... 372 more dims in embeddings_full.txt
+
+[ 46/62] 12ce2a1a26c7_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-small-cap
+  attribute    : objective
+  chunk_type   : prose
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 38 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Small Cap Fund – Direct Growth | Scheme objective | Groww scheme page. The scheme seeks
+    to provide long-term capital appreciation /income by investing predominantly in Small-Cap
+    companies.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0970, -0.0499, -0.0344, +0.0195, +0.1436, +0.0571, +0.0029, +0.0566, -0.1094, +0.0409, -0.0018, -0.0560]
+    ... 372 more dims in embeddings_full.txt
+
+[ 47/62] b2d264b93973_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 37 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Expense ratio | Groww scheme page. HDFC
+    Balanced Advantage Fund – Direct Growth: the expense ratio is 0.78% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0738, -0.0360, -0.0772, +0.0050, +0.1145, +0.0526, -0.0267, +0.0199, -0.0647, +0.0189, -0.0249, -0.0902]
+    ... 372 more dims in embeddings_full.txt
+
+[ 48/62] b6284db8a6ad_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : base_expense_ratio
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 48 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Base expense ratio | Groww scheme page. HDFC
+    Balanced Advantage Fund – Direct Growth: the base expense ratio (before the additional
+    fund-expense charge) is 0.64% per annum.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0738, -0.0281, -0.0689, -0.0034, +0.1384, +0.0444, -0.0313, +0.0338, -0.0580, +0.0305, -0.0174, -0.0951]
+    ... 372 more dims in embeddings_full.txt
+
+[ 49/62] 8b087c299f4d_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : exit_load
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 55 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Exit load | Groww scheme page. HDFC Balanced
+    Advantage Fund – Direct Growth: the exit load applies as follows: for units in excess of 15%
+    of the investment, 1% will be charged for redemption within 1 year.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0442, -0.0295, -0.0605, -0.0120, +0.1157, +0.0374, -0.0332, +0.0464, -0.0752, +0.0385, +0.0140, -0.0510]
+    ... 372 more dims in embeddings_full.txt
+
+[ 50/62] c05487284691_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : min_sip
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 34 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Minimum SIP | Groww scheme page. HDFC
+    Balanced Advantage Fund – Direct Growth: the minimum SIP amount is ₹100.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0403, -0.0386, -0.1016, -0.0211, +0.0606, +0.0450, +0.0023, +0.0821, -0.0644, +0.0076, -0.0023, -0.1067]
+    ... 372 more dims in embeddings_full.txt
+
+[ 51/62] 4a779778cfff_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : min_lumpsum
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 38 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Minimum lump-sum | Groww scheme page. HDFC
+    Balanced Advantage Fund – Direct Growth: the minimum lump-sum investment is ₹100.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0446, -0.0302, -0.0945, -0.0098, +0.0763, +0.0610, -0.0091, +0.0803, -0.0754, +0.0200, -0.0228, -0.0890]
+    ... 372 more dims in embeddings_full.txt
+
+[ 52/62] 00d58c011649_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : riskometer
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 34 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Riskometer | Groww scheme page. HDFC Balanced
+    Advantage Fund – Direct Growth: the riskometer level is Moderately High.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0581, -0.0729, -0.0755, +0.0123, +0.1291, +0.0671, -0.0402, +0.0389, -0.0812, +0.0111, -0.0198, -0.0696]
+    ... 372 more dims in embeddings_full.txt
+
+[ 53/62] bf034f15c23c_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : benchmark
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 43 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Benchmark | Groww scheme page. HDFC Balanced
+    Advantage Fund – Direct Growth: the benchmark index is NIFTY 50 Hybrid Composite Debt 50:50
+    Index.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0339, -0.0507, -0.0811, -0.0055, +0.0851, +0.0474, -0.0253, +0.0397, -0.0864, +0.0139, -0.0553, -0.0566]
+    ... 372 more dims in embeddings_full.txt
+
+[ 54/62] dfa61b8c5f1a_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : fund_manager
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 38 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Fund manager | Groww scheme page. HDFC
+    Balanced Advantage Fund – Direct Growth: the fund manager is Srinivas Rao Ravuri.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0318, -0.0517, -0.1032, +0.0168, +0.1066, +0.0623, -0.0223, +0.0229, -0.0896, +0.0183, -0.0165, -0.0890]
+    ... 372 more dims in embeddings_full.txt
+
+[ 55/62] 8ccfead5dc83_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : category
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 36 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Fund category | Groww scheme page. HDFC
+    Balanced Advantage Fund – Direct Growth: the scheme category is Hybrid - Dynamic Asset
+    Allocation.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0610, -0.0450, -0.0815, -0.0107, +0.1018, +0.0591, -0.0258, +0.0144, -0.0646, +0.0130, -0.0268, -0.0582]
+    ... 372 more dims in embeddings_full.txt
+
+[ 56/62] 3eb0f7671896_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : rta
+  chunk_type   : fact_card
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 41 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Registrar and transfer agent | Groww scheme
+    page. HDFC Balanced Advantage Fund – Direct Growth: the registrar and transfer agent (RTA)
+    is Cams.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [-0.0395, -0.0413, -0.1221, -0.0200, +0.0463, +0.0593, -0.0054, +0.0468, -0.0308, +0.0301, +0.0264, -0.0591]
+    ... 372 more dims in embeddings_full.txt
+
+[ 57/62] 992db3d71eb8_000
+----------------------------------------------------------------------------------------------------
+  scheme       : hdfc-balanced-advantage
+  attribute    : objective
+  chunk_type   : prose
+  source_type  : groww
+  source_url   : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+  fetched_at   : 2026-09-27
+  tokens       : 38 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Balanced Advantage Fund – Direct Growth | Scheme objective | Groww scheme page. The
+    Scheme seeks to provide long term capital appreciation / income from a dynamic mix of equity
+    and debt investments.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0263, -0.0327, -0.0664, -0.0252, +0.0834, +0.0602, -0.0287, +0.0391, -0.1129, +0.0125, -0.0287, -0.0487]
+    ... 372 more dims in embeddings_full.txt
+
+[ 58/62] aa9611a6f782_000
+----------------------------------------------------------------------------------------------------
+  scheme       : general
+  attribute    : statement_download
+  chunk_type   : steps
+  source_type  : rta
+  source_url   : https://mfs.kfintech.com/investor/
+  fetched_at   : 2026-09-27
+  tokens       : 122 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Mutual Fund schemes | Find which RTA holds your HDFC Mutual Fund folio | RTA investor
+    portal. Step 1: HDFC Mutual Fund folios are serviced by CAMS as the registrar and transfer
+    agent, so most HDFC Mutual Fund investors use the CAMS portal. Step 2: If your folio was
+    opened with another AMC and later transferred to HDFC Mutual Fund, it may sit with KFintech
+    instead. Step 3: Check your folio number on your latest statement or account maintenance
+    form to see which RTA holds it, then use that RTA's portal.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0398, -0.1281, -0.1155, -0.0314, +0.0921, +0.0595, +0.0388, +0.0130, +0.0524, +0.0310, -0.0199, +0.0025]
+    ... 372 more dims in embeddings_full.txt
+
+[ 59/62] dcdae28bfe23_000
+----------------------------------------------------------------------------------------------------
+  scheme       : general
+  attribute    : statement_download
+  chunk_type   : steps
+  source_type  : rta
+  source_url   : https://www.camsonline.com/
+  fetched_at   : 2026-09-27
+  tokens       : 130 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Mutual Fund schemes | Download a consolidated account statement (CAS) | RTA investor
+    portal. Step 1: Log in to your RTA's investor portal with your folio number and credentials;
+    CAMS uses a mobile number or email plus PAN, and KFintech uses a similar login. Step 2: Open
+    the statements or My Account section and choose Consolidated Account Statement. Step 3:
+    Select the financial year or date range, and the folios to include if you have more than
+    one. Step 4: Download the statement as a PDF and save it. Consolidated statements can be
+    large, so request one year at a time.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0446, -0.0766, -0.0771, +0.0133, +0.0494, +0.0580, +0.0326, +0.0809, +0.0189, +0.0364, +0.0025, -0.0516]
+    ... 372 more dims in embeddings_full.txt
+
+[ 60/62] 1c765e1ef2d6_000
+----------------------------------------------------------------------------------------------------
+  scheme       : general
+  attribute    : statement_download
+  chunk_type   : steps
+  source_type  : rta
+  source_url   : https://www.camsonline.com/
+  fetched_at   : 2026-09-27
+  tokens       : 131 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Mutual Fund schemes | Download a capital-gains statement | RTA investor portal. Step 1:
+    Log in to your RTA's investor portal and go to the reports or tax section. Step 2: Choose
+    Capital Gains Statement, then select the financial year in which the units were sold. Step
+    3: Pick the file format you need: a readable PDF, an Excel or CSV for your own records, or
+    the ITR-ready XML/XML schema file your tax preparer may ask for. Step 4: Download and keep
+    the file with your tax records, since the same details are needed at income-tax filing time.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0766, -0.0620, -0.0652, +0.0035, +0.0670, +0.0922, +0.0069, +0.0659, -0.0576, +0.0438, +0.0100, -0.0556]
+    ... 372 more dims in embeddings_full.txt
+
+[ 61/62] 70484976aa5e_000
+----------------------------------------------------------------------------------------------------
+  scheme       : general
+  attribute    : statement_download
+  chunk_type   : steps
+  source_type  : rta
+  source_url   : https://www.camsonline.com/
+  fetched_at   : 2026-09-27
+  tokens       : 133 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Mutual Fund schemes | Download the annual tax summary for income-tax filing | RTA
+    investor portal. Step 1: Log in to your RTA's investor portal and open the tax or tax
+    reports section. Step 2: Request the annual tax statement for the relevant financial year;
+    it lists dividend income and realised capital gains per scheme. Step 3: Download the file,
+    then use it to cross-check the figures in your income-tax return before you file. Step 4:
+    Note that mutual fund tax rules changed for units bought on or after 1 April 2023, so check
+    the holding period shown for each transaction rather than assuming an older rule.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0516, -0.0860, -0.0330, -0.0045, +0.1099, +0.0497, +0.0284, +0.0440, -0.0365, +0.0473, +0.0177, -0.0521]
+    ... 372 more dims in embeddings_full.txt
+
+[ 62/62] b22db4b8e4ed_000
+----------------------------------------------------------------------------------------------------
+  scheme       : general
+  attribute    : statement_download
+  chunk_type   : steps
+  source_type  : amfi
+  source_url   : https://www.amfiindia.com/investor
+  fetched_at   : 2026-09-27
+  tokens       : 122 (MiniLM truncates silently past 256)
+
+  DOCUMENT (this exact string is embedded):
+    HDFC Mutual Fund schemes | Where to find official fund documents and investor education |
+    AMFI investor page. Step 1: AMFI's Investor Corner is the industry body one-stop hub for
+    mutual fund knowledge, scheme categorisation and risk-o-meter explainers. Step 2: For
+    scheme-specific charges, investment objective and risk details, read the official HDFC
+    Mutual Fund SID, KIM and monthly factsheet for that scheme. Step 3: Keep the factsheet: it
+    is the official monthly document that carries a scheme's expense ratio, benchmark and
+    portfolio disclosures.
+
+  EMBEDDING    : 384 dims, L2 norm = 1.0000
+    first 12: [+0.0780, -0.0481, -0.0729, +0.0499, +0.1569, +0.0591, +0.0049, +0.0762, -0.0245, +0.0327, -0.0618, -0.0222]
+    ... 372 more dims in embeddings_full.txt
+
+====================================================================================================
+END
+====================================================================================================

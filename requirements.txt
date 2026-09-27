@@ -1,0 +1,26 @@
+# Verified working versions on this machine (Python 3.13.5, 27 Sep 2026).
+chromadb==1.5.9
+sentence-transformers==6.1.0
+streamlit==1.45.1
+beautifulsoup4==4.12.3
+requests==2.32.3
+pytest==8.3.4
+
+# LLM providers, needed only if LLM_PROVIDER is set to groq or openai in .env.
+# The app runs fully offline without this.
+#
+# Pinned to a 1.x release on purpose. openai 3.x depends on `httpx2`, whose
+# response decoder is incompatible with this machine's compression modules:
+# every call dies with
+#   TypeError: process() takes no keyword arguments
+# (raised from httpx2/_decoders.py while *decoding* the response, so the
+# request itself succeeds). The 1.x line uses standard `httpx` and works.
+openai==1.109.1
+
+# PDF loader for official SID / KIM / factsheet documents (Phase 1+, optional
+# until official AMC documents are supplied manually - see implementation.md).
+pdfplumber>=0.11
+
+# Optional JS-rendering fallback. Not installed by default: every field this
+# build needs is present in the server-rendered __NEXT_DATA__ payload.
+# playwright>=1.40
